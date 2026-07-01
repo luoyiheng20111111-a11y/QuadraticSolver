@@ -383,8 +383,8 @@ fun simplifySqrt(n: Double): Pair<String, Int> {
     
     val intN = n.toLong()
     var m = intN
-    var coeff = 1
-    var divisor = 1
+    var coeff: Long = 1
+    var divisor: Long = 1
     
     // 提取平方因子
     val primes = listOf(4L, 9L, 16L, 25L, 36L, 49L, 64L, 81L, 100L, 121L, 144L, 169L, 196L, 225L)
@@ -392,15 +392,14 @@ fun simplifySqrt(n: Double): Pair<String, Int> {
     for (prime in primes) {
         while (m % prime == 0L) {
             m /= prime
-            coeff *= (prime / (prime / 4)).toInt()
-            if (prime / 4 < prime) divisor *= 4
+            coeff *= (prime / 4)
         }
     }
     
     // 检查是否能被其他平方数整除
-    var d = 2
+    var d: Long = 2
     while (d * d <= m) {
-        var square = d * d
+        val square = d * d
         while (m % square == 0L) {
             m /= square
             coeff *= d
@@ -409,9 +408,9 @@ fun simplifySqrt(n: Double): Pair<String, Int> {
     }
     
     val remaining = m
-    return if (remaining == 1) {
-        Pair(formatNumber(coeff.toDouble() * sqrt(remaining.toDouble())), 1)
-    } else if (coeff == 1) {
+    return if (remaining == 1L) {
+        Pair(formatNumber(coeff.toDouble()), 1)
+    } else if (coeff == 1L) {
         Pair("${formatNumber(n.toDouble())}", 1)
     } else {
         Pair("${formatNumber(coeff.toDouble())}√${formatNumber(remaining.toDouble())}", 1)
