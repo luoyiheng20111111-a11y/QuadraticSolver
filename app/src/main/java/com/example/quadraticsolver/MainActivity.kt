@@ -15,7 +15,6 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.styleUNDS
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -215,6 +214,7 @@ fun EquationDisplay(a: String, b: String, c: String) {
     val bVal = b.toDoubleOrNull()
     val cVal = c.toDoubleOrNull()
 
+    // 构建方程式文本，使用 Unicode 下标字符
     val equationText = buildAnnotatedString {
         // 第一个项 ax²
         val aStr = when {
@@ -225,9 +225,7 @@ fun EquationDisplay(a: String, b: String, c: String) {
             else -> formatNumber(aVal)
         }
         append(aStr)
-        withStyle(SpanStyle(UNDS)) {
-            append("x²")
-        }
+        append("x²")
 
         // 第二个项 bx
         val bPrefix = when {
@@ -244,9 +242,7 @@ fun EquationDisplay(a: String, b: String, c: String) {
         }
         append(bPrefix)
         append(bStr)
-        withStyle(SpanStyle(UNDS)) {
-            append("x")
-        }
+        append("x")
 
         // 第三个项 c
         val cPrefix = when {
